@@ -1,167 +1,363 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>イルカのふりをする子｜公式サイト</title>
-<meta name="description" content="やさしいイルカになりたくて、“ふり”をしているサメの子。プロフィールと公式リンク・お問い合わせの公式サイト。" />
-<link rel="canonical" href="https://irukanofuriwosurusame.github.io/iruka/" />
-<meta name="robots" content="index,follow" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUA - 水の精霊 公式サイト (構造確認用)</title>
+    <style>
+        /* CSSコード開始 */
+        
+        /* 基本リセット */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        /* メインカラー定義 */
+        :root {
+            --main-color: #007BFF; /* メイン青 */
+            --accent-color: #66CCFF; /* アクセント水色 */
+            --new-main-color: #2F6B8F; /* 新しいメイン青 (CFE7FFと合うように調整) */
+            --new-accent-color: #CFE7FF; /* 新しい淡い水色 (指定カラー) */
+            --bg-light: #F4F8FA;
+            --text-dark: #333;
+            --text-light: #FFFFFF;
+        }
 
-<style>
-/* ==========================================================
-   元のサイトの基本CSS (FVのCSS描画部分は削除済み)
-   ========================================================== */
-:root{
-  --fv-zoom: 100%;
-  --band:#d0e6ff;
-  --theme:#2A70C9;
-  --soft:#E8F6FF;
-  --card:#fff;
-}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{
-  font-family:'M PLUS Rounded 1c', -apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,'Noto Sans JP',sans-serif;
-  background:var(--soft);
-  color:#203246;
-}
-/* ===== First View: 動画背景 (元のHTMLを再現) ===== */
-.fv{
-  position: relative;
-  min-height: 100svh;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  background: var(--soft); /* 読み込み前の下地色 */
-}
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--new-accent-color); /* 全体の薄い背景色に新しいカラーを適用 */
+        }
 
-.fv-video{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;      /* 画面いっぱいにフィットさせてトリミング */
-  object-position: center;
-  z-index: 0;
-  pointer-events: none;   /* クリック操作の邪魔をしない */
-}
+        a {
+            text-decoration: none;
+            color: var(--new-main-color);
+        }
+        
+        /* --- フォントの読み込み (外部サービスを使用する場合は必要) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 
-/* 動きを苦手とするユーザーには静止画を表示 */
-@media (prefers-reduced-motion: reduce) {
-  .fv{
-    /* 画像パスは、ご自身でアップロードしたファイル名に合わせて調整してください */
-    background: url('assets/PPG.png') center / cover no-repeat, var(--soft);
-  }
-}
-/* FVのフェードオーバーレイ */
-.fv-fade{position:absolute; inset:auto 0 0 0; height:20vh; background:linear-gradient(to bottom, rgba(232,246,255,0) 0%, var(--soft) 85%);}
+        /* --- ヘッダー/ナビゲーション --- */
+        .site-header {
+            background-color: var(--text-light);
+            border-bottom: 3px solid var(--new-main-color); /* メインカラーのボーダー */
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.container{max-width:1080px; margin:0 auto; padding:0 20px;}
-.section{padding:48px 0;}
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
 
-/* Profile hero area - 画像エリアではなく、テキストコンテンツエリアに変更します */
-.profile-hero{
-  width:100%;
-  padding: 50px 20px; /* パディングを追加 */
-  text-align: center;
-  background: var(--soft);
-}
-.profile-hero h2{
-    color: var(--theme);
-    font-size: clamp(24px, 4vw, 32px);
-    font-weight: 900;
-    margin-bottom: 20px;
-}
-.profile-hero p{
-    font-size: clamp(16px, 2vw, 18px);
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 15px auto;
-}
+        .char-icon {
+            /* 画像がない場合は代替の青い四角を表示 */
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            background-color: var(--new-main-color); 
+            border-radius: 50%;
+            display: inline-block;
+        }
 
-/* SNS/Contact existing (元のサイトのスタイルを維持) */
-.band{width:100%; background:var(--band);} .band .section{padding:56px 0;}
-.sns h3{text-align:center; color:#1e69c0; margin:0 0 2px; font-size:clamp(18px,2.2vw,22px); font-weight:900; letter-spacing:.01em;}
-.sns-note{ text-align:center; color:#1e69c0; font-size:17px; line-height:1.7; margin:0 0 20px;}
-.sns-grid{display:grid; grid-template-columns:repeat(3, minmax(220px,1fr)); gap:18px;}
-.sns-card{display:flex; align-items:center; gap:14px; background:var(--card); color:#203246; text-decoration:none; border-radius:16px; padding:18px; box-shadow:0 10px 26px rgba(0,0,0,.10); transition:transform .15s ease, box-shadow .15s ease;}
-.sns-card:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(0,0,0,.14);} .sns-logo{width:52px; height:52px; display:block;} .sns-title{font-size:18px; font-weight:900; color:#111;}
-#contact.contact{padding:64px 0; background:#d0e6ff;} .contact-inner{max-width:960px; margin:0 auto; text-align:center; padding:0 20px;}
-.contact-title{margin:0 0 2px; font-size:clamp(18px,2.2vw,22px); font-weight:900; color:#1e69c0; letter-spacing:.01em;}
-.contact-lead{margin:0; font-size:clamp(17px,2.3vw,17px); line-height:1.7; color:#1e69c0; font-weight:400;}
-.contact-lead .inline-link{color:#2f64d2; text-decoration:underline; text-underline-offset:3px; font-weight:600;} .contact-lead .inline-link:hover{opacity:.85;}
-.footer{text-align:center; color:#354d6e; padding:32px 0; font-size:13px;}
-@media (max-width:900px){ .sns-grid{grid-template-columns:1fr;} }
-</style>
+        .site-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--new-main-color);
+            margin-right: auto;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav a {
+            color: var(--text-dark);
+            font-weight: 700;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: var(--new-main-color);
+            border-bottom: 2px solid var(--new-main-color);
+        }
+
+        /* --- メインビジュアル/ヒーローセクション --- */
+        .hero-section {
+            position: relative;
+            background-color: var(--new-accent-color); /* 背景画像がない場合はこの色 */
+            height: 80vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 5px solid var(--new-main-color);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .main-visual-area {
+            flex-basis: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100%;
+        }
+
+        .main-char-img {
+            /* 画像がない場合のプレースホルダ */
+            max-height: 90%;
+            width: 400px; 
+            height: 600px;
+            background-color: var(--new-main-color);
+            opacity: 0.8;
+            color: var(--text-light);
+            text-align: center;
+            line-height: 600px;
+            font-size: 1.5em;
+            border-radius: 10px;
+        }
+
+        .catchphrase-area {
+            flex-basis: 50%;
+            text-align: right;
+            color: var(--new-main-color);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .catchphrase-area h2 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .catchphrase-area p {
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        /* --- コンテンツセクション --- */
+        .section-content {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px 30px;
+            background-color: var(--text-light);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-content h3 {
+            font-size: 2em;
+            color: var(--new-main-color);
+            border-bottom: 3px solid var(--new-accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* プロフィール */
+        .profile-details p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .profile-details p::before {
+            content: '▶';
+            color: var(--new-main-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* スキル */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .skill-item {
+            padding: 20px;
+            border: 1px solid var(--new-accent-color);
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(47, 107, 143, 0.2);
+        }
+
+        .skill-item img {
+            /* 画像がない場合のプレースホルダ */
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            background-color: var(--new-main-color);
+            border-radius: 50%;
+        }
+
+        .skill-item h4 {
+            font-size: 1.4em;
+            color: var(--new-main-color);
+            margin-bottom: 10px;
+        }
+
+        /* ニュース */
+        .news-list {
+            list-style: none;
+        }
+
+        .news-list li {
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--new-accent-color);
+            display: flex;
+            font-size: 1.1em;
+        }
+
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+
+        .news-list time {
+            font-weight: 700;
+            color: var(--new-main-color);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        /* --- フッター --- */
+        .site-footer {
+            background-color: var(--new-main-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+        }
+
+        /* --- レスポンシブ対応 --- */
+        @media (max-width: 768px) {
+            .header-content { flex-wrap: wrap; justify-content: center; }
+            .site-title { margin-right: 0; text-align: center; width: 100%; }
+            .main-nav { width: 100%; margin-top: 10px; }
+            .main-nav ul { justify-content: center; }
+            .main-nav li { margin: 0 10px; }
+            
+            .hero-section { height: auto; padding-top: 50px; padding-bottom: 50px; }
+            .hero-content { flex-direction: column; text-align: center; }
+            .main-visual-area { height: auto; margin-bottom: 30px; }
+            
+            /* 画像プレースホルダの調整 */
+            .main-char-img { max-width: 80%; width: 300px; height: 450px; line-height: 450px; } 
+
+            .catchphrase-area { text-align: center; }
+            .catchphrase-area h2 { font-size: 2.5em; }
+            .catchphrase-area p { font-size: 1.2em; }
+        }
+
+        /* CSSコード終了 */
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header class="site-header">
+        <div class="header-content">
+            <div class="char-icon" title="char_icon.pngの代替"></div>
+            <h1 class="site-title">AQUA</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#profile">PROFILE</a></li>
+                    <li><a href="#skills">SKILLS</a></li>
+                    <li><a href="#news">NEWS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<section class="fv" aria-label="ファーストビュー">
-  <video class="fv-video"
-         autoplay
-         muted
-         loop
-         playsinline
-         preload="auto"
-         poster="assets/PPG.png">
-    <source src="assets/PPG_movie.mp4" type="video/mp4">
-    <img src="assets/PPG.png" alt="イルカのふりをする子のファーストビュー画像">
-  </video>
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="main-visual-area">
+                    <div class="main-char-img">main_char.png</div>
+                </div>
+                <div class="catchphrase-area">
+                    <h2>🌊 世界を潤す、慈愛の精霊</h2>
+                    <p>この世界に生命を与える、清らかな水の化身。</p>
+                </div>
+            </div>
+        </section>
 
-  <div class="fv-fade" aria-hidden="true"></div>
-</section>
+        <section id="profile" class="section-content profile-section">
+            <h3>PROFILE / プロフィール</h3>
+            <div class="profile-details">
+                <p>名前: AQUA (アクア)</p>
+                <p>種族: 水の精霊</p>
+                <p>年齢: 不明 (数千年以上)</p>
+                <p>性格: 穏やかで慈悲深い。時に大河のように力強い一面を見せる。</p>
+                <p>詳細: 世界に存在する全ての水源の管理者であり、その力を借りてあらゆる場所に現れることができます。人々を癒し、導く存在として知られています。</p>
+            </div>
+        </section>
 
-<main>
-  <section class="profile-hero" aria-label="プロフィール">
-    <div class="container">
-        <h2>プロフィール</h2>
-        <p>やさしいイルカになりたくて、**“ふり”をしているサメの子**。</p>
-        <p>本当は**人見知りで泣き虫**。友達に優しく接したいのに、ちょっと強がっちゃうこともあるの。</p>
-        <p>趣味は海で**ぼーっとすること**と、**おいしいものを食べる**こと！<br>たくさんの人と仲良くなりたいな...! </p>
-    </div>
-  </section>
-  
-  <div class="band"><div class="container">
-    <section class="section sns" id="sns">
-      <h3>公式SNS</h3>
-      <p class="sns-note">たくさんコメントしてくれると嬉しいの〜！</p>
-      <div class="sns-grid">
-        <a class="sns-card" href="https://www.tiktok.com/@irukanofuriwosurusame" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg class="sns-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img"><circle cx="32" cy="32" r="32" fill="#000"/><path d="M41 24.5c2.5 1.9 5 2.9 7.6 3v6.1c-3.2-.2-6.1-1.3-8.8-3.3v9.4c0 6.6-5.4 11.3-12 11.3-3 0-5.8-1-7.9-2.8a10 10 0 0 1 8.6-17c1 0 2 .2 3 .5v6.4a4.5 4.5 0 0 0-3-.9 4.7 4.7 0 0 0-4.6 4.8c0 2.7 2.1 4.7 5 4.7a5.6 5.6 0 0 0 5.8-5.6V12h6.3c.4 4.9 2.8 9 7 12.5z" fill="#fff"/></svg>
-          <div class="sns-title">TikTok</div>
-        </a>
-        <a class="sns-card" href="https://www.youtube.com/@%E3%82%A4%E3%83%AB%E3%82%AB%E3%81%AE%E3%83%95%E3%83%AA%E3%82%92%E3%81%99%E3%82%8B%E5%AD%90" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg class="sns-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img"><rect x="6" y="14" width="52" height="36" rx="10" fill="#FF0000"/><polygon points="28,22 28,42 46,32" fill="#fff"/></svg>
-          <div class="sns-title">YouTube</div>
-        </a>
-        <a class="sns-card" href="https://www.instagram.com/irukanofuriwosurusame/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg class="sns-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
-            <defs><linearGradient id="igG" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset="0.3" stop-color="#D62976"/><stop offset="0.6" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs>
-            <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#igG)"/><circle cx="32" cy="32" r="12" fill="none" stroke="#fff" stroke-width="6"/><circle cx="44" cy="20" r="4" fill="#fff"/>
-          </svg>
-          <div class="sns-title">Instagram</div>
-        </a>
-      </div>
-    </section>
+        <section id="skills" class="section-content skills-section">
+            <h3>SKILLS / 能力</h3>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-item-icon"></div>
+                    <h4>癒やしの雫</h4>
+                    <p>対象の傷や疲労を瞬時に回復させます。範囲内の生命体すべてに効果があります。</p>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-item-icon"></div>
+                    <h4>大河の呼び声</h4>
+                    <p>大量の水を自在に操り、防御壁や攻撃手段として使用します。地形さえも変化させます。</p>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-item-icon"></div>
+                    <h4>聖水の浄化</h4>
+                    <p>ネガティブなエネルギーや汚染された場所を清浄な状態に戻します。</p>
+                </div>
+            </div>
+        </section>
 
-    <section id="contact" class="contact">
-      <div class="contact-inner">
-        <h2 class="contact-title">お問い合わせ</h2>
-        <p class="contact-lead">
-          おしごと・コラボのご相談は
-          <a class="inline-link" href="mailto:irukanofuriwosurusame@gmail.com">こちら</a>
-          にお気軽にどうぞ
-        </p>
-      </div>
-    </section>
-    <section class="footer">© <span id="y"></span> イルカのふりをする子</section>
-  </div></div>
-</main>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+        <section id="news" class="section-content news-section">
+            <h3>NEWS / お知らせ</h3>
+            <ul class="news-list">
+                <li><time datetime="2025-11-20">2025.11.20</time>：公式サイトをリニューアルオープンしました！</li>
+                <li><time datetime="2025-11-15">2025.11.15</time>：コミックマーケットにて限定グッズが販売されます。</li>
+                <li><time datetime="2025-11-01">2025.11.01</time>：新ボイスドラマCDの発売が決定しました。</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 AQUA. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
