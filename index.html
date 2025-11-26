@@ -3,54 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQUA - 水の精霊 公式サイト (構造確認用)</title>
+    <title>AQUA - 蒼き精霊 公式サイト (構造確認用)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /* CSSコード開始 */
         
-        /* 基本リセット */
+        /* -- 変数と基本リセット -- */
+        :root {
+            --new-main-color: #2F6B8F; /* 濃い青 */
+            --new-accent-color: #CFE7FF; /* ご指定の淡い水色 */
+            --text-dark: #333;
+            --text-light: #FFFFFF;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            will-change: transform, opacity; 
         }
-
-        /* メインカラー定義 */
-        :root {
-            --main-color: #007BFF; /* メイン青 */
-            --accent-color: #66CCFF; /* アクセント水色 */
-            --new-main-color: #2F6B8F; /* 新しいメイン青 (CFE7FFと合うように調整) */
-            --new-accent-color: #CFE7FF; /* 新しい淡い水色 (指定カラー) */
-            --bg-light: #F4F8FA;
-            --text-dark: #333;
-            --text-light: #FFFFFF;
-        }
-
         body {
+            background-color: var(--new-accent-color);
             font-family: 'Noto Sans JP', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
-            background-color: var(--new-accent-color); /* 全体の薄い背景色に新しいカラーを適用 */
+            perspective: 1000px; 
         }
-
         a {
             text-decoration: none;
             color: var(--new-main-color);
+            transition: opacity 0.3s;
         }
-        
-        /* --- フォントの読み込み (外部サービスを使用する場合は必要) --- */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        a:hover {
+            opacity: 0.7;
+        }
 
         /* --- ヘッダー/ナビゲーション --- */
         .site-header {
             background-color: var(--text-light);
-            border-bottom: 3px solid var(--new-main-color); /* メインカラーのボーダー */
-            padding: 10px 0;
+            border-bottom: 3px solid var(--new-main-color);
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -59,106 +57,98 @@
             justify-content: space-between;
             padding: 0 20px;
         }
-
-        .char-icon {
-            /* 画像がない場合は代替の青い四角を表示 */
-            width: 32px;
-            height: 32px;
-            margin-right: 10px;
-            background-color: var(--new-main-color); 
-            border-radius: 50%;
-            display: inline-block;
-        }
-
         .site-title {
             font-size: 1.8em;
             font-weight: 700;
             color: var(--new-main-color);
-            margin-right: auto;
         }
-
         .main-nav ul {
             list-style: none;
             display: flex;
         }
-
         .main-nav li {
             margin-left: 30px;
         }
-
         .main-nav a {
-            color: var(--text-dark);
             font-weight: 700;
             padding: 5px 0;
-            transition: color 0.3s;
+            color: var(--text-dark);
         }
-
         .main-nav a:hover {
             color: var(--new-main-color);
             border-bottom: 2px solid var(--new-main-color);
         }
 
-        /* --- メインビジュアル/ヒーローセクション --- */
+        /* --- ヒーローセクション（パララックスの土台とプレースホルダ） --- */
         .hero-section {
             position: relative;
-            background-color: var(--new-accent-color); /* 背景画像がない場合はこの色 */
-            height: 80vh; 
+            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border-bottom: 5px solid var(--new-main-color);
+            align-items: center;
+            overflow: hidden; 
+            background-color: #A9D5F0; /* 水のイメージカラー */
         }
-
-        .hero-content {
-            max-width: 1200px;
+        /* 背景プレースホルダ */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; 
+            background-color: #79BCE0; /* 背景が動くイメージ */
+            z-index: 1;
+        }
+        .hero-bg::before {
+            content: "🌊 背景パターン（bg_pattern.jpg）";
+            position: absolute;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 2em;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
         }
-
-        .main-visual-area {
-            flex-basis: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 100%;
-        }
-
+        /* メインキャラ プレースホルダ */
         .main-char-img {
-            /* 画像がない場合のプレースホルダ */
-            max-height: 90%;
+            flex-basis: 50%;
             width: 400px; 
             height: 600px;
             background-color: var(--new-main-color);
             opacity: 0.8;
-            color: var(--text-light);
-            text-align: center;
-            line-height: 600px;
-            font-size: 1.5em;
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 1.5em;
         }
-
         .catchphrase-area {
             flex-basis: 50%;
             text-align: right;
-            color: var(--new-main-color);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            color: var(--text-light); /* キャラの色に合わせて白文字に */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
         }
-
         .catchphrase-area h2 {
-            font-size: 3.5em;
+            font-size: 4em;
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 900;
         }
-
         .catchphrase-area p {
-            font-size: 1.5em;
-            font-weight: 400;
+            font-size: 1.8em;
         }
 
         /* --- コンテンツセクション --- */
@@ -170,194 +160,326 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
-
-        .section-content h3 {
+        .section-title {
             font-size: 2em;
             color: var(--new-main-color);
             border-bottom: 3px solid var(--new-accent-color);
             padding-bottom: 10px;
             margin-bottom: 30px;
             text-align: center;
+            /* JSがないため、初期状態は表示しておく */
+            opacity: 1; 
         }
 
-        /* プロフィール */
-        .profile-details p {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            padding-left: 15px;
-            position: relative;
+        /* --- ABOUTセクション --- */
+        .about-intro {
+            font-size: 1.2em;
+            text-align: center;
+        }
+        .about-intro p {
+            margin-bottom: 20px;
         }
 
-        .profile-details p::before {
-            content: '▶';
-            color: var(--new-main-color);
-            position: absolute;
-            left: 0;
-        }
-
-        /* スキル */
-        .skills-grid {
+        /* --- キャラクターセクション（フリップアニメーションのCSS核） --- */
+        .characters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 40px;
+        }
+        .char-card {
+            background-color: transparent;
+            width: 100%;
+            height: 350px; 
+            perspective: 1000px; 
+            cursor: pointer;
+            /* マウスホバーでフリップの動作を確認するためのCSS */
+            transition: transform 0.5s; 
+        }
+        
+        /* PCホバー時の回転をCSSのみで定義 */
+        .char-card:hover .char-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .char-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
             text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
         }
 
-        .skill-item {
-            padding: 20px;
-            border: 1px solid var(--new-accent-color);
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(47, 107, 143, 0.2);
-        }
-
-        .skill-item img {
-            /* 画像がない場合のプレースホルダ */
-            width: 50px;
-            height: 50px;
-            margin-bottom: 15px;
-            background-color: var(--new-main-color);
-            border-radius: 50%;
-        }
-
-        .skill-item h4 {
-            font-size: 1.4em;
-            color: var(--new-main-color);
-            margin-bottom: 10px;
-        }
-
-        /* ニュース */
-        .news-list {
-            list-style: none;
-        }
-
-        .news-list li {
-            padding: 15px 0;
-            border-bottom: 1px dashed var(--new-accent-color);
+        .char-card-front, .char-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            font-size: 1.1em;
-        }
-
-        .news-list li:last-child {
-            border-bottom: none;
-        }
-
-        .news-list time {
+            justify-content: flex-end;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
             font-weight: 700;
-            color: var(--new-main-color);
-            margin-right: 20px;
-            flex-shrink: 0;
         }
 
-        /* --- フッター --- */
-        .site-footer {
+        /* メインキャラのフリップカード - 前面（A面） */
+        .char-card-front {
+            background-color: var(--new-accent-color);
+            color: var(--new-main-color);
+            border: 3px solid var(--new-main-color);
+        }
+        .char-card-front h4::before { content: "メインキャラ (A面)"; }
+        .char-card-front::after {
+            content: "メイン画像 (main_char_A.png)";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--new-main-color);
+            opacity: 0.5;
+            font-size: 1.2em;
+        }
+        
+        /* メインキャラのフリップカード - 背面（B面） */
+        .char-card-back {
             background-color: var(--new-main-color);
             color: var(--text-light);
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.9em;
+            transform: rotateY(180deg); 
+            justify-content: center;
         }
+        .char-card-back p { margin: 5px 0; }
+        .char-card-back::after {
+            content: "裏面画像 (main_char_B.png)";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-light);
+            opacity: 0.5;
+            font-size: 0.8em;
+        }
+        
+        /* サブキャラのカードも同様にプレースホルダを適用 */
+        .char-card.small .char-card-front::after { content: "サブ画像 (skill_X_A.png)"; }
+        .char-card.small .char-card-back::after { content: "裏面画像 (skill_X_B.png)"; }
+
+
+        /* --- NEWSセクション（Swiperの基本表示） --- */
+        .news-slider {
+            /* Swiperの領域を可視化 */
+            padding: 0 50px; 
+        }
+        .news-item {
+            /* ニュース記事のプレースホルダ */
+            height: 250px;
+            background-color: var(--new-accent-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: var(--new-main-color);
+            border: 1px solid var(--new-main-color);
+        }
+        /* Swiperのナビゲーションボタンを一時的に非表示 */
+        .swiper-button-next, .swiper-button-prev {
+             display: none; 
+        }
+        
+        /* --- フッター（パララックスの土台とプレースホルダ） --- */
+        .site-footer {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background-color: var(--new-main-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .footer-bg-far, .footer-bg-mid, .footer-contact-bubble {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.4;
+            color: var(--text-light);
+        }
+
+        .footer-bg-far::before { content: "フッター遠景 (data-speed=0.1)"; }
+        .footer-bg-mid::before { content: "フッター中景 (data-speed=0.3)"; }
+        .footer-contact-bubble {
+            width: 300px;
+            height: 200px;
+            border: 2px solid var(--text-light);
+            border-radius: 50%;
+            opacity: 1;
+            top: 150px;
+        }
+        .footer-contact-bubble::before { content: "CONTACTバブル (data-speed=0.5)"; }
+        .copyright {
+            position: relative;
+            z-index: 10;
+            color: var(--new-accent-color);
+            padding: 20px;
+        }
+
 
         /* --- レスポンシブ対応 --- */
         @media (max-width: 768px) {
-            .header-content { flex-wrap: wrap; justify-content: center; }
-            .site-title { margin-right: 0; text-align: center; width: 100%; }
-            .main-nav { width: 100%; margin-top: 10px; }
-            .main-nav ul { justify-content: center; }
-            .main-nav li { margin: 0 10px; }
-            
-            .hero-section { height: auto; padding-top: 50px; padding-bottom: 50px; }
-            .hero-content { flex-direction: column; text-align: center; }
-            .main-visual-area { height: auto; margin-bottom: 30px; }
-            
-            /* 画像プレースホルダの調整 */
-            .main-char-img { max-width: 80%; width: 300px; height: 450px; line-height: 450px; } 
-
-            .catchphrase-area { text-align: center; }
-            .catchphrase-area h2 { font-size: 2.5em; }
-            .catchphrase-area p { font-size: 1.2em; }
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .main-char-img {
+                max-width: 80%;
+                height: 400px;
+                margin-bottom: 30px;
+            }
+            .catchphrase-area {
+                text-align: center;
+            }
+            .catchphrase-area h2 {
+                font-size: 3em;
+            }
+            .site-footer {
+                height: 400px;
+            }
+            .footer-contact-bubble {
+                top: 80px;
+                width: 250px;
+                height: 150px;
+            }
         }
-
-        /* CSSコード終了 */
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="site-header">
         <div class="header-content">
-            <div class="char-icon" title="char_icon.pngの代替"></div>
-            <h1 class="site-title">AQUA</h1>
+            <h1 class="site-title"><a href="#">AQUA</a></h1>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#profile">PROFILE</a></li>
-                    <li><a href="#skills">SKILLS</a></li>
-                    <li><a href="#news">NEWS</a></li>
+                    <li><a href="#about" class="js-smooth-scroll">ABOUT</a></li>
+                    <li><a href="#character" class="js-smooth-scroll">CHARACTER</a></li>
+                    <li><a href="#news" class="js-smooth-scroll">NEWS</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero-section">
+        <section class="hero-section js-parallax-scene">
+            <div class="hero-bg js-parallax-element" data-speed="0.2"></div>
+            
             <div class="hero-content">
-                <div class="main-visual-area">
-                    <div class="main-char-img">main_char.png</div>
-                </div>
-                <div class="catchphrase-area">
-                    <h2>🌊 世界を潤す、慈愛の精霊</h2>
-                    <p>この世界に生命を与える、清らかな水の化身。</p>
+                <div class="main-char-img js-fade-in" data-delay="0.5">main_char_A.png</div>
+                
+                <div class="catchphrase-area js-parallax-element" data-speed="0.8">
+                    <h2 class="js-heading-animation">🌊 世界を潤す、慈愛の精霊</h2>
+                    <p>水の結晶体が織りなす、生命の物語。</p>
                 </div>
             </div>
         </section>
 
-        <section id="profile" class="section-content profile-section">
-            <h3>PROFILE / プロフィール</h3>
-            <div class="profile-details">
-                <p>名前: AQUA (アクア)</p>
-                <p>種族: 水の精霊</p>
-                <p>年齢: 不明 (数千年以上)</p>
-                <p>性格: 穏やかで慈悲深い。時に大河のように力強い一面を見せる。</p>
-                <p>詳細: 世界に存在する全ての水源の管理者であり、その力を借りてあらゆる場所に現れることができます。人々を癒し、導く存在として知られています。</p>
+        <section id="about" class="section-content about-section">
+            <h3 class="section-title js-scroll-trigger">ABOUT / 世界観</h3>
+            <div class="about-intro">
+                <p class="js-scroll-trigger" data-stagger="0.2">宇宙と生命の源流に存在する、水の結晶体。</p>
+                <p class="js-scroll-trigger" data-stagger="0.3">彼女の存在が、この星のあらゆる生態系を支えている。</p>
+                <p class="js-scroll-trigger" data-stagger="0.4">すべての水辺に現れる、穏やかで神秘的な精霊の物語が今、始まります。</p>
             </div>
         </section>
 
-        <section id="skills" class="section-content skills-section">
-            <h3>SKILLS / 能力</h3>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-item-icon"></div>
-                    <h4>癒やしの雫</h4>
-                    <p>対象の傷や疲労を瞬時に回復させます。範囲内の生命体すべてに効果があります。</p>
+        <section id="character" class="section-content character-section">
+            <h3 class="section-title js-scroll-trigger">CHARACTER / 仲間たち</h3>
+            <div class="characters-grid">
+                <div class="char-card js-flip-card">
+                    <div class="char-card-inner js-flip-inner">
+                        <div class="char-card-front">
+                            <h4>AQUA</h4>
+                        </div>
+                        <div class="char-card-back">
+                            <p>名前：アクア</p>
+                            <p>属性：水（メイン）</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-item-icon"></div>
-                    <h4>大河の呼び声</h4>
-                    <p>大量の水を自在に操り、防御壁や攻撃手段として使用します。地形さえも変化させます。</p>
+
+                <div class="char-card small js-flip-card">
+                    <div class="char-card-inner js-flip-inner">
+                        <div class="char-card-front">
+                            <h4>フレア</h4>
+                        </div>
+                        <div class="char-card-back">
+                            <p>名前：フレア</p>
+                            <p>属性：炎</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-item-icon"></div>
-                    <h4>聖水の浄化</h4>
-                    <p>ネガティブなエネルギーや汚染された場所を清浄な状態に戻します。</p>
+                
+                <div class="char-card small js-flip-card">
+                    <div class="char-card-inner js-flip-inner">
+                        <div class="char-card-front">
+                            <h4>ウィンド</h4>
+                        </div>
+                        <div class="char-card-back">
+                            <p>名前：ウィンド</p>
+                            <p>属性：風</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="char-card small js-flip-card">
+                    <div class="char-card-inner js-flip-inner">
+                        <div class="char-card-front">
+                            <h4>ゲイル</h4>
+                        </div>
+                        <div class="char-card-back">
+                            <p>名前：ゲイル</p>
+                            <p>属性：地</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="news" class="section-content news-section">
-            <h3>NEWS / お知らせ</h3>
-            <ul class="news-list">
-                <li><time datetime="2025-11-20">2025.11.20</time>：公式サイトをリニューアルオープンしました！</li>
-                <li><time datetime="2025-11-15">2025.11.15</time>：コミックマーケットにて限定グッズが販売されます。</li>
-                <li><time datetime="2025-11-01">2025.11.01</time>：新ボイスドラマCDの発売が決定しました。</li>
-            </ul>
+            <h3 class="section-title js-scroll-trigger">NEWS / お知らせ</h3>
+            <div class="swiper news-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide news-item">2025.11.26：公式サイト公開のお知らせ</div>
+                    <div class="swiper-slide news-item">2025.11.20：新キャラクター発表！</div>
+                    <div class="swiper-slide news-item">2025.11.15：グッズ情報更新</div>
+                    <div class="swiper-slide news-item">2025.11.01：イベント出展決定</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="staff" class="section-content staff-section">
+            <h3 class="section-title js-scroll-trigger">STAFF / 制作陣</h3>
+            <div class="staff-details">
+                <p>企画・原案: <span>〇〇 太郎</span></p>
+                <p>キャラクターデザイン: <span>〇〇 次郎</span></p>
+                <p>音楽: <span>〇〇 花子</span></p>
+            </div>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2025 AQUA. All Rights Reserved.</p>
+    <footer class="site-footer js-parallax-scene-footer">
+        <div class="footer-bg-far js-parallax-element" data-speed="0.1"></div>
+        <div class="footer-bg-mid js-parallax-element" data-speed="0.3"></div>
+        
+        <div class="footer-contact-bubble js-parallax-element" data-speed="0.5"></div>
+        
+        <p class="copyright">&copy; 2025 AQUA. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
